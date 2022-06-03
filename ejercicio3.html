@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 3</title>
+</head>
+
+<body>
+    <div>
+        <div>
+            <h2>Resultado: <span class="resultado"></span></h2>
+            <div>
+                <div>
+                    <div>
+                        <label for="">Valor 1</label>
+                        <input id="valor1" type="text">
+                    </div>
+                    <div>
+                        <label for="">Valor 2</label>
+                        <input id="valor2" type="text">
+                    </div>
+                    <div style="display: flex">
+                        <button id="btn-sumar" type="button">
+                            Sumar
+                        </button>
+                        <button id="btn-restar" type="button">
+                            Restar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Escríbe aquí tu código
+        /* Dar la funcionalidad de sumar y restar a la calculadora, mostrando el resultado en el
+elemento con clase resultado. Si el resultado de la resta entrega un número negativo
+debes mostrar un 0. */
+
+        let resultado = document.querySelector(".resultado");
+        let btnsumar = document.querySelector("#btn-sumar");
+        let btnrestar = document.querySelector("#btn-restar");
+
+        btnsumar.addEventListener("click", function () {
+            let valor1 = document.querySelector("#valor1").value;
+            let valor2 = document.querySelector("#valor2").value;
+            let suma = parseInt(valor1, 10) + parseInt(valor2, 10);
+            document.querySelector(".resultado").innerHTML = `El resultado de la suma es: ${suma}`;
+        });
+
+        btnrestar.addEventListener("click", function () {
+            let valor1 = document.querySelector("#valor1").value;
+            let valor2 = document.querySelector("#valor2").value;
+            let resta = parseInt(valor1, 10) - parseInt(valor2, 10);
+            if (resta < 0) {
+                resta = 0;
+            }
+            document.querySelector(".resultado").innerHTML = `El resultado de la resta es: ${resta}`;
+        });
+    </script>
+</body>
+
+</html>

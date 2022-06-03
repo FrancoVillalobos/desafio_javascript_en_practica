@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 1</title>
+</head>
+
+<body>
+    <div>
+        <div style="width: 40%;margin: 0 auto">
+            <h2>
+                Escríbenos !!!
+            </h2>
+            <div class="resultado" style="color:green;font-style: italic">
+            </div>
+            <form id="formulario">
+                <div>
+                    <div style="display: flex;flex-direction: column;">
+                        <label>
+                            Nombre completo
+                        </label>
+                        <input id="nombre" type="text">
+                        <p class="errorNombre" style="color:red;font-style: italic;"></p>
+                    </div>
+                    <div style="display: flex;flex-direction: column;">
+                        <label>
+                            Asunto
+                        </label>
+                        <input id="asunto" type="text">
+                        <p class="errorAsunto" style="color:red;font-style: italic;"></p>
+                    </div>
+                </div>
+                <div style="display: flex;flex-direction: column;">
+                    <label>
+                        Mensaje
+                    </label>
+                    <textarea id="mensaje"></textarea>
+                    <p class="errorMensaje" style="color:red;font-style: italic;"></p>
+                </div>
+                <div>
+                    <button id="botton" type="submit">
+                        Envíar mensaje
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        // Escríbe aquí tu código
+        /*         1. Desarrollar un código para validar un formulario de contacto utilizando el evento
+        submit y las expresiones regulares que permitan el ingreso de caracteres desde la
+        “A-a” hasta la “Z-z” mediante el método test() de JavaScript, mostrando un mensaje
+        de error y/o éxito cuando corresponda. Es decir, el usuario deberá obligatoriamente
+        ingresar datos en el formulario y que estos solo sean caracteres alfabéticos de la “a”
+        hasta la “z” para poder enviar la información. */
+
+        let form = document.getElementById("formulario")
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault()
+            //limpiarErrores()
+
+            let textNombre = document.querySelector("#nombre").value
+            let textAsunto = document.querySelector("#asunto").value
+            let textMensaje = document.querySelector("#mensaje").value
+
+            let resultado = validar(textNombre, textAsunto, textMensaje)
+
+            if (resultado == true) {
+                console.log(textNombre, textAsunto, textMensaje)
+                exito()
+            } else {
+                limpiarErrores()
+            }
+        })
+
+        function limpiarErrores() {
+            document.querySelector(".resultado").innerHTML = ""
+            document.querySelector("#nombre").value = ""
+            document.querySelector("#asunto").value = ""
+            document.querySelector("#mensaje").value = ""
+            console.log("Errores limpiados")
+        }
+
+        function exito() {
+            document.querySelector(".resultado").innerHTML = "Mensaje enviado con éxito!!!"
+            document.querySelector("#nombre").value = ""
+            document.querySelector("#asunto").value = ""
+            document.querySelector("#mensaje").value = ""
+            document.querySelector(".errorNombre").innerHTML = ""
+            document.querySelector(".errorAsunto").innerHTML = ""
+            document.querySelector(".errorMensaje").innerHTML = ""
+        }
+
+        function validar(nombre, asunto, mensaje) {
+            console.log("Validando...")
+            let validacion = true
+
+            const expReg = new RegExp('[A-Z]+$', 'i') //[A-Z] solo letras, (+$)solo aceptar caracter espacio, ('i')minusculas o mayusculas
+            let validacionNombre = expReg
+            let validacionAsunto = /[a-zA-Z]/ // acepta todo pero al menos una letra sin salto de linea
+            let validacionMensaje = /[a-zA-Z]/gim // acepta todo pero al menos una letra
+
+            if (validacionNombre.test(nombre) == false) {
+                document.querySelector(".errorNombre").innerHTML = "El nombre es requerido."
+                validacion = false
+            } else {
+                limpiarErrores()
+            }
+            if (validacionAsunto.test(asunto) == false) {
+                document.querySelector(".errorAsunto").innerHTML = "El asunto es requerido"
+                validacion = false
+            }
+
+            if (validacionMensaje.test(mensaje) == false) {
+                document.querySelector(".errorMensaje").innerHTML = "El mensaje es requerido."
+                validacion = false
+            }
+            console.log(validacion)
+            return validacion
+        }
+    </script>
+</body>
+
+</html>
